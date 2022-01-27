@@ -1,0 +1,1 @@
+/home/dario/Desktop/Progetto_labiagi/workspace/devel/.private/slam/share/slam/cmake/slamConfig-version.cmake

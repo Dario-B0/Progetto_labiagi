@@ -1,0 +1,5 @@
+slam
+/home/dario/Desktop/Progetto_labiagi/workspace/devel/.private/slam/cmake.lock /home/dario/Desktop/Progetto_labiagi/workspace/devel/./cmake.lock
+/home/dario/Desktop/Progetto_labiagi/workspace/devel/.private/slam/lib/pkgconfig/slam.pc /home/dario/Desktop/Progetto_labiagi/workspace/devel/lib/pkgconfig/slam.pc
+/home/dario/Desktop/Progetto_labiagi/workspace/devel/.private/slam/share/slam/cmake/slamConfig.cmake /home/dario/Desktop/Progetto_labiagi/workspace/devel/share/slam/cmake/slamConfig.cmake
+/home/dario/Desktop/Progetto_labiagi/workspace/devel/.private/slam/share/slam/cmake/slamConfig-version.cmake /home/dario/Desktop/Progetto_labiagi/workspace/devel/share/slam/cmake/slamConfig-version.cmake
