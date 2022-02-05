@@ -3,31 +3,38 @@
 #include <string>
 #include <ros/ros.h>
 #include "vector"
+#include "set"
 #include "tf/tf.h"
 #include "tf2_msgs/TFMessage.h"
 #include "tf2_ros/transform_listener.h"
 #include "geometry_msgs/TransformStamped.h"
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include "nav_msgs/Odometry.h"
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2/LinearMath/Matrix3x3.h>
+#include <apriltag_ros/AprilTagDetectionArray.h>
+
+using namespace std;
 
 int T = 100;
 
 int next_position = 1000;
 bool conect_pose = false;
 
-std::vector<float> old_position(3, 0);
-std::vector<float> current_position(3, 0);
+vector<float> old_position(3, 0);
+vector<float> current_position(3, 0);
 
-std::ofstream oFile("graph.txt", std::ios_base::out | std::ios_base::trunc);
+set<int> tag_in={};
 
-//tf2_ros::Buffer tfBuffer;
+ofstream oFile("graph.txt", ios_base::out | ios_base::trunc);
+
+tf2_ros::Buffer tfBuffer;
 
 void odometryCallback(const nav_msgs::OdometryConstPtr &odom)
 {
     tf2::Quaternion q(odom->pose.pose.orientation.x, odom->pose.pose.orientation.y, odom->pose.pose.orientation.z, odom->pose.pose.orientation.w);
     double roll, pitch, yaw;
-    tf2::Matrix3x3 (q).getRPY(roll, pitch, yaw);
+    tf2::Matrix3x3(q).getRPY(roll, pitch, yaw);
 
     current_position[0] = odom->pose.pose.position.x;
     current_position[1] = odom->pose.pose.position.y;
@@ -72,13 +79,55 @@ void odometryCallback(const nav_msgs::OdometryConstPtr &odom)
     return;
 }
 
+void tagDetectionsCallback(const apriltag_ros::AprilTagDetectionArrayConstPtr &detection_msg)
+{
+    int tag_id;
+    float tag_size;
+
+    //tag position and orientation in camera frame
+    vector<float> tag_position_cf(3,0);
+
+    //tag position and orientation in world frame (odometry)
+    vector<float> tag_position_wf(3,0);
+
+    for (const apriltag_ros::AprilTagDetection &tag : detection_msg->detections)
+    {
+        tag_id = tag.id[1];
+        tag_size = tag.size[1];
+
+        tag_position_cf[0]= tag.pose.pose.pose.position.x;
+        tag_position_cf[1]= tag.pose.pose.pose.position.y;
+        tag_position_cf[2]= tag.pose.pose.pose.position.z;
+
+        geometry_msgs::TransformStamped transformStamped;       
+        try
+        {
+            transformStamped = tfBuffer.lookupTransform("odom", "fisheye_rect",ros::Time(0));
+        }
+        catch (tf2::TransformException &ex)
+        {
+            ROS_WARN("%s", ex.what());
+            ros::Duration(1.0).sleep();
+            continue;
+        }
+
+
+        if (tag_in.find(tag_id) != tag_in.end()){
+            tag_in.insert(tag_id);
+            //
+        }
+    }
+    return;
+}
+
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "graph_node");
     ros::NodeHandle nh;
     ros::Subscriber sub_tf = nh.subscribe("/odom", 1000, odometryCallback);
+    ros::Subscriber sub_tag_detc = nh.subscribe("/tag_detections", 1000, tagDetectionsCallback);
 
-    //tf2_ros::TransformListener tfListener(tfBuffer);
+    tf2_ros::TransformListener tfListener(tfBuffer);
 
     ros::Rate loop_rate(T);
 

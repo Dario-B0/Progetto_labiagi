@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   tf2
   tf2_ros
+  apriltag_ros
 )
 
 ## System dependencies are found with CMake's conventions
@@ -209,3 +210,4 @@ include_directories(
 
 add_executable(graph_node src/graph_node.cpp)
 target_link_libraries(graph_node ${catkin_LIBRARIES})
+add_dependencies(graph_node apriltag_ros_generate_messages_cpp)
