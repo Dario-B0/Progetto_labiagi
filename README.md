@@ -51,7 +51,7 @@ Quindi avviare la bag che contiene la registrazione (non è stata caricata nella
 
 # Ottimizzazione
 
-Le posizioni del robot e dei tag (e le posizioni relative tra tag e robot) sono soggette a errori di misura, per questo è possibile utilizzare algoritmi di ottimizzazine per la risuzione dell'errore;
+Le posizioni del robot e dei tag (e le posizioni relative tra tag e robot) sono soggette a errori di misura, per questo è possibile utilizzare algoritmi di ottimizzazione per la riduzione dell'errore;
 
 in questo caso si utilizza g2o (https://github.com/RainerKuemmerle/g2o):
 
