@@ -4,13 +4,28 @@ Progetto per il Laboratorio di intelligenza artificiale e grafica interattiva: P
 Il progetto consiste nella realizzazione di un programma che prende in input un dataset con robot che naviga per in un ambiente del quale non conosce la mappa con telecamera e inquadra April-Tag (telecamera calibrata e estrinseci noti) e restituisce in output un file di testo che descrive il processo di esplorazione del robot.
 Il risultato finale è un grafo contenete due tipi di nodi e di archi rappresentati nel seguente formato 
 
-Posizione del robot nell'ambiente: `VERTEX_SE2 <id> <x> <y> <theta>`
+Posizione del robot nell'ambiente:
 
-Posizione del tag nell'ambiente:  `VERTEX_XY <tag_id> <xw> <yw>`
+`VERTEX_SE2 <id> <x> <y> <theta>`
 
-Spostamento del robot tra due posizioni consecutive: `EDGE_SE2 <id-1> <id> <dx> <dy> <dth>`
 
-Posizione relativa tra tag osservato e posizione del robot dalla quale è stato rilevato: `EDGE_SE2_XY <id_pose> <id_tag> <xr> <yr>`
+
+Posizione del tag nell'ambiente: 
+
+`VERTEX_XY <tag_id> <xw> <yw>`
+
+
+
+Spostamento del robot tra due posizioni consecutive: 
+
+`EDGE_SE2 <id-1> <id> <dx> <dy> <dth>`
+
+
+
+Posizione relativa tra tag osservato e posizione del robot dalla quale è stato rilevato: 
+
+`EDGE_SE2_XY <id_pose> <id_tag> <xr> <yr>`
+
 ## Test
 Per eseguire il programma copiare il contenuto della cartella workspace/src nel proprio workspace e eseguire `catkin build` e successivamente `source devel/setup.bash`
 
