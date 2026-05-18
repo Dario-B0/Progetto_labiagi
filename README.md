@@ -1,8 +1,8 @@
 # Progetto_labiagi
 Progetto per il Laboratorio di intelligenza artificiale e grafica interattiva: Pose-Landmark Graph for Slam
 ## Descrizione
-Il progetto consiste nella realizzazione di un programma che prende in input un dataset con robot che naviga per in un ambiente del quale non conosce la mappa con telecamera e inquadra April-Tag (telecamera calibrata e estrinseci noti) e restituisce in output un file di testo che descrive il processo di esplorazione del robot.
-Il risultato finale è un grafo contenete due tipi di nodi e di archi rappresentati nel seguente formato 
+Il progetto consiste nella realizzazione di un programma che prenda in input un dataset contenente i dati di navigazione di robot che naviga in un ambiente del quale non conosce la mappa. Il robot monta una telecamera e inquadra April-Tag (telecamera calibrata e parametri estrinseci noti), producendo un file di testo che descrive il processo di esplorazione del robot.
+Il risultato finale è un grafo contenente due tipi di nodi e di archi rappresentati nel seguente formato 
 
 Posizione del robot nell'ambiente:
 
